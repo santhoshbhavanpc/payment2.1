@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun Mall Parking Payment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color:black;
+      color: white;
+    }
+    h2 {
+      text-align: center;
+      color: white;
+    }
+    h2 img {
+      vertical-align: middle;
+      width: 30px; /* Adjust size as needed */
+      height: 30px;
+      margin-right: 8px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    input[readonly] {
+      background-color: #f0f0f0;
+      color: #333;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #0073e6;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+   
+  </style>
+</head>
+<body>
+  <h2>Paying to:<br> 
+    <img src="2.1img.png" alt="Fun Mall Logo"> Fun Mall Parking system</h2>
+  <label>Amount:</label>
+  <input type="number" id="amount" value="50" readonly>
+
+  <label>Choose account to pay:</label>
+  <select id="account">
+    <option selected>Punjab National Bank ****1234</option>
+    <option>State Bank of India ****5678</option>
+  </select>
+
+  <button onclick="pay()">Pay</button>
+
+  <script>
+    function pay(){
+      window.location.href = 'https://santhoshbhavanpc.github.io/payment2.2/';
+    }
+  </script>
+</body>
+</html>
