@@ -44,9 +44,11 @@
   <h2>Paying to:<br> 
     <img src="2.1img.png" alt="Fun Mall Logo"> Fun Mall Parking system</h2>
 
-   <label>Paying to:</label>
+  <label>Paying to:</label>
   <input type="text" value="Fun Mall Parking System" readonly>
 
+  <label>Vehicle Number:</label>
+  <input type="text" id="vehicleNo" readonly>
 
   <label>Choose account to pay:</label>
   <select id="account">
@@ -57,6 +59,15 @@
   <button onclick="pay()">Pay</button>
 
   <script>
+    // Get vehicleNo from URL query parameters
+    const params = new URLSearchParams(window.location.search);
+    const vehicleNo = params.get("vehicleNo");
+    if (vehicleNo) {
+      document.getElementById("vehicleNo").value = vehicleNo;
+    } else {
+      document.getElementById("vehicleNo").value = "Not provided";
+    }
+
     function pay() {
       window.location.href = 'https://santhoshbhavanpc.github.io/payment2.2/';
     }
