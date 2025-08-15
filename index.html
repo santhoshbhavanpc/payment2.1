@@ -44,9 +44,9 @@
   <h2>Paying to:<br> 
     <img src="2.1img.png" alt="Fun Mall Logo"> Fun Mall Parking system</h2>
 
-  <label>Amount:</label>
-  <!-- Remove static value, set empty for now -->
-  <input type="number" id="amount" readonly>
+   <label>Paying to:</label>
+  <input type="text" value="Fun Mall Parking System" readonly>
+
 
   <label>Choose account to pay:</label>
   <select id="account">
@@ -57,23 +57,6 @@
   <button onclick="pay()">Pay</button>
 
   <script>
-    // Fetch amount.json from screen1 repo and update the amount input
-    function fetchAmount() {
-      fetch('https://santhoshbhavanpc.github.io/screen1/amount.json?ts=' + Date.now())
-        .then(response => response.json())
-        .then(data => {
-          // Update the input value with the fetched amount
-          document.getElementById('amount').value = data.amount;
-        })
-        .catch(error => {
-          console.error('Error fetching amount:', error);
-          document.getElementById('amount').value = '';
-        });
-    }
-
-    // Call fetchAmount when page loads
-    window.onload = fetchAmount;
-
     function pay() {
       window.location.href = 'https://santhoshbhavanpc.github.io/payment2.2/';
     }
