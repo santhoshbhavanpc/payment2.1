@@ -16,7 +16,7 @@
     }
     h2 img {
       vertical-align: middle;
-      width: 30px; /* Adjust size as needed */
+      width: 30px;
       height: 30px;
       margin-right: 8px;
     }
@@ -44,8 +44,10 @@
   <h2>Paying to:<br> 
     <img src="2.1img.png" alt="Fun Mall Logo"> Fun Mall Parking system</h2>
 
+  <label>Vehicle Number:</label>
+  <input type="text" id="vehicleNo" readonly>
+
   <label>Amount:</label>
-  <!-- Remove static value, set empty for now -->
   <input type="number" id="amount" readonly>
 
   <label>Choose account to pay:</label>
@@ -56,27 +58,46 @@
 
   <button onclick="pay()">Pay</button>
 
-  <script>
-    // Fetch amount.json from screen1 repo and update the amount input
-    function fetchAmount() {
-      fetch('https://santhoshbhavanpc.github.io/screen1/amount.json?ts=' + Date.now())
-        .then(response => response.json())
-        .then(data => {
-          // Update the input value with the fetched amount
-          document.getElementById('amount').value = data.amount;
-        })
-        .catch(error => {
-          console.error('Error fetching amount:', error);
-          document.getElementById('amount').value = '';
+  <!-- Firebase v9 SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getDatabase, ref, query, limitToLast, onValue } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-database.js";
+
+    // ===== history-storing Firebase config =====
+    const firebaseConfig = {
+      apiKey: "AIzaSyBpRla6iYXgZuxyCHvtQ8bIcwKf5i3ga1U",
+      authDomain: "history-storing.firebaseapp.com",
+      databaseURL: "https://history-storing-default-rtdb.firebaseio.com",
+      projectId: "history-storing",
+      storageBucket: "history-storing.firebasestorage.app",
+      messagingSenderId: "30155724407",
+      appId: "1:30155724407:web:0162dd94f5492441ae9872"
+    };
+
+    // ===== Initialize Firebase =====
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // ===== Fetch latest vehicle + price =====
+    function fetchLatest() {
+      const latestQuery = query(ref(db, "vehicleLogs"), limitToLast(1));
+      onValue(latestQuery, (snapshot) => {
+        snapshot.forEach((child) => {
+          const data = child.val();
+          if (data) {
+            document.getElementById('amount').value = data.price || '';
+            document.getElementById('vehicleNo').value = data.vehicleNo || '';
+          }
         });
+      });
     }
 
-    // Call fetchAmount when page loads
-    window.onload = fetchAmount;
+    window.onload = fetchLatest;
 
     function pay() {
       window.location.href = 'https://santhoshbhavanpc.github.io/payment2.2/';
     }
+    window.pay = pay;
   </script>
 </body>
 </html>
